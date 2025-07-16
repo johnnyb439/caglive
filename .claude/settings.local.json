@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(git init:*)",
+      "Bash(touch:*)",
+      "Bash(echo \"# Push to GitHub Commands:\ngit remote add origin https://github.com/YOUR_USERNAME/cleared-advisory.git\ngit branch -M main\ngit push -u origin main\")",
+      "Bash(git branch:*)",
+      "Bash(git config:*)",
+      "Bash(chmod:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  }
+}

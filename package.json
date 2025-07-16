@@ -1,0 +1,11 @@
+{
+  "name": "cleared-advisory-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd cleared-advisory-nextjs && npm run dev",
+    "build": "cd cleared-advisory-nextjs && npm run build",
+    "start": "cd cleared-advisory-nextjs && npm run start",
+    "install:app": "cd cleared-advisory-nextjs && npm install"
+  }
+}

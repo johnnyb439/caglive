@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "cleared-advisory-nextjs/pages/api/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/cleared-advisory-nextjs/$1"
+    }
+  ]
+}
