@@ -624,25 +624,25 @@ export default function ResourcesPage() {
                       {resource.downloadable && resource.downloadPath ? (
                         <button 
                           onClick={() => handleDownload(resource.downloadPath)}
-                          className="flex-1 btn-secondary text-sm"
+                          className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm"
                         >
                           Download
                         </button>
                       ) : resource.interactive && resource.id === 'clearance-timeline' ? (
                         <button 
                           onClick={() => setShowCalculator(true)}
-                          className="flex-1 btn-secondary text-sm"
+                          className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm"
                         >
                           Open Calculator
                         </button>
                       ) : resource.type === 'video' ? (
-                        <button className="flex-1 btn-secondary text-sm">
+                        <button className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm">
                           Watch Video
                         </button>
                       ) : (
                         <button 
                           onClick={() => setSelectedResource(resource)}
-                          className="flex-1 btn-secondary text-sm"
+                          className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm"
                         >
                           Read More
                         </button>
@@ -728,25 +728,25 @@ export default function ResourcesPage() {
                         {resource.downloadable ? (
                           <button 
                             onClick={() => handleDownload(resource.downloadPath)}
-                            className="flex-1 btn-secondary text-sm"
+                            className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm"
                           >
                             Download
                           </button>
                         ) : resource.interactive ? (
                           <button 
                             onClick={() => setShowCalculator(true)}
-                            className="flex-1 btn-secondary text-sm"
+                            className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm"
                           >
                             Open Tool
                           </button>
                         ) : resource.type === 'video' ? (
-                          <button className="flex-1 btn-secondary text-sm">
+                          <button className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm">
                             Watch Video
                           </button>
                         ) : (
                           <button 
                             onClick={() => setSelectedResource(resource)}
-                            className="flex-1 btn-secondary text-sm"
+                            className="flex-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold text-sm"
                           >
                             Read More
                           </button>
@@ -834,7 +834,7 @@ export default function ResourcesPage() {
               <Link href="/contact" className="btn-primary bg-white dark:bg-gray-800 text-command-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 Schedule Consultation
               </Link>
-              <Link href="/mock-interview" className="btn-secondary border-white text-white hover:bg-white/10">
+              <Link href="/mock-interview" className="bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-6 py-3 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold inline-block">
                 Practice Interviews
               </Link>
             </div>
@@ -938,7 +938,7 @@ export default function ResourcesPage() {
                 )}
                 <button
                   onClick={() => setSelectedResource(null)}
-                  className="btn-secondary"
+                  className="bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white px-4 py-2 rounded-lg hover:from-emerald-green hover:to-sky-blue transition-all duration-300 font-semibold"
                 >
                   Close
                 </button>

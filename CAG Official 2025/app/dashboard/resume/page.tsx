@@ -247,16 +247,42 @@ export default function UpdateResumePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-command-black py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-900 text-gray-100 relative overflow-hidden">
+      {/* Binary Pattern Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="text-dynamic-green font-mono text-lg leading-relaxed">
+            {Array(30).fill(null).map((_, i) => (
+              <div key={i} className="whitespace-nowrap">
+                {Array(15).fill('01101000 01100101 01101100 01110000 00100000 ').join('')}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Scattered larger binary numbers */}
+        <div className="absolute top-10 left-20 text-cyber-cyan opacity-10 font-mono text-4xl transform rotate-12">
+          01010011
+        </div>
+        <div className="absolute top-40 right-32 text-dynamic-green opacity-10 font-mono text-3xl transform -rotate-6">
+          11001010
+        </div>
+        <div className="absolute bottom-20 left-40 text-sky-blue opacity-10 font-mono text-5xl transform rotate-45">
+          10110
+        </div>
+        <div className="absolute bottom-40 right-20 text-emerald-green opacity-10 font-mono text-3xl transform -rotate-12">
+          01101110
+        </div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Update Resume</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <h1 className="text-3xl font-bold text-white">Update Resume</h1>
+          <p className="mt-2 text-gray-400">
             Upload and manage your resume to match with cleared jobs
           </p>
         </motion.div>
