@@ -1,14 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Document, Page, pdfjs } from 'react-pdf'
-import 'react-pdf/dist/Page/AnnotationLayer.css'
-import 'react-pdf/dist/Page/TextLayer.css'
+import dynamic from 'next/dynamic'
 import mammoth from 'mammoth'
 import { Loader2, AlertCircle, FileText, ChevronLeft, ChevronRight } from 'lucide-react'
 
-// Set up PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`
+// Dynamically import react-pdf components to avoid SSR issues
+const Document = dynamic(() => import('react-pdf').then(mod => mod.Document), { ssr: false })
+const Page = dynamic(() => import('react-pdf').then(mod => mod.Page), { ssr: false })
+
+// Set up PDF.js worker client-side only
+if (typeof window !== 'undefined') {
+  import('react-pdf').then(({ pdfjs }) => {
+    pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`
+  })
+}
 
 interface ResumePreviewProps {
   file: File | null
@@ -117,7 +123,7 @@ export default function ResumePreview({ file, fileUrl }: ResumePreviewProps) {
                 renderTextLayer={false}
                 renderAnnotationLayer={false}
                 className="mx-auto"
-                width={window.innerWidth > 768 ? 500 : 300}
+                width={typeof window !== 'undefined' && window.innerWidth > 768 ? 500 : 300}
               />
             </Document>
 
