@@ -74,23 +74,13 @@ export default function Navbar() {
               
               {/* User Icon for logged in users */}
               {user && (
-                <>
-                  <Link
-                    href="/profile"
-                    className="text-white hover:text-sky-blue transition-colors duration-300"
-                    title="Profile"
-                  >
-                    <User size={20} />
-                  </Link>
-                  
-                  {/* Dashboard Button */}
-                  <Link
-                    href="/dashboard"
-                    className="px-3 py-1.5 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white text-sm font-semibold rounded hover:shadow-md hover:brightness-95 transition-all duration-200"
-                  >
-                    Dashboard
-                  </Link>
-                </>
+                <Link
+                  href="/profile"
+                  className="text-white hover:text-sky-blue transition-colors duration-300"
+                  title="Profile"
+                >
+                  <User size={20} />
+                </Link>
               )}
               
               {/* Theme Toggle */}
@@ -144,16 +134,6 @@ export default function Navbar() {
               </div>
               <span className="text-[10px] text-gray-400">USA</span>
             </div>
-            
-            {/* Dashboard button for mobile when logged in */}
-            {user && (
-              <Link
-                href="/dashboard"
-                className="px-2 py-1 bg-gradient-to-r from-dynamic-green to-dynamic-blue text-white text-xs font-semibold rounded hover:shadow-md hover:brightness-95 transition-all duration-200"
-              >
-                Dashboard
-              </Link>
-            )}
             
             <button
               onClick={() => setIsOpen(!isOpen)}
