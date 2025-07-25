@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import ResumeCard from '@/components/resume/ResumeCard'
+import EnhancedResumeCard from '@/components/resume/EnhancedResumeCard'
+import ResumePreview from '@/components/resume/ResumePreview'
+import AISuggestionsPanel from '@/components/resume/AISuggestionsPanel'
 import ResumeVersionList from '@/components/resume/ResumeVersionList'
-import ResumeInsightsPanel from '@/components/resume/ResumeInsightsPanel'
-import ResumeToJobMatcher from '@/components/resume/ResumeToJobMatcher'
+import { detectPII } from '@/utils/piiDetection'
+import mammoth from 'mammoth'
+import { pdfjs } from 'react-pdf'
 import Toast from '@/components/ui/Toast'
 
 interface Resume {
@@ -18,32 +21,25 @@ interface Resume {
   notes?: string
 }
 
-interface InsightData {
-  overallScore: number
-  keywordsFound: string[]
-  missingKeywords: string[]
-  strengths: string[]
-  suggestions: string[]
+interface Suggestion {
+  type: 'keyword' | 'skill' | 'improvement' | 'tip'
+  text: string
+  priority: 'high' | 'medium' | 'low'
 }
 
-interface JobMatch {
-  id: string
-  title: string
-  company: string
-  location: string
-  clearanceRequired: string
-  matchPercentage: number
-  improvementTips: string[]
-  jobUrl: string
-}
 
 export default function UpdateResumePage() {
   const [currentResume, setCurrentResume] = useState<Resume | null>(null)
   const [resumeHistory, setResumeHistory] = useState<Resume[]>([])
-  const [insights, setInsights] = useState<InsightData | null>(null)
-  const [jobMatches, setJobMatches] = useState<JobMatch[]>([])
+  const [currentFile, setCurrentFile] = useState<File | null>(null)
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
+  const [aiScore, setAiScore] = useState(0)
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([])
+  const [keywords, setKeywords] = useState<string[]>([])
+  const [missingKeywords, setMissingKeywords] = useState<string[]>([])
   const [isUploading, setIsUploading] = useState(false)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [hasAIReview, setHasAIReview] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [showToast, setShowToast] = useState(false)
 
@@ -67,7 +63,12 @@ export default function UpdateResumePage() {
 
   const handleFileUpload = async (file: File) => {
     setIsUploading(true)
-    setIsAnalyzing(true)
+    setCurrentFile(file)
+    setHasAIReview(false)
+    
+    // Create file URL for preview
+    const url = URL.createObjectURL(file)
+    setFileUrl(url)
 
     // Simulate upload delay
     await new Promise(resolve => setTimeout(resolve, 1500))
@@ -76,7 +77,7 @@ export default function UpdateResumePage() {
       id: Date.now().toString(),
       name: file.name,
       size: `${(file.size / 1024 / 1024).toFixed(2)} MB`,
-      uploadDate: new Date().toISOString(),
+      uploadDate: new Date().toLocaleDateString(),
       isDefault: false,
       version: resumeHistory.length + 1,
     }
@@ -92,112 +93,107 @@ export default function UpdateResumePage() {
     localStorage.setItem('currentResume', JSON.stringify(newResume))
     setIsUploading(false)
     showNotification('Resume uploaded successfully!')
+  }
 
-    // Simulate AI analysis
-    await new Promise(resolve => setTimeout(resolve, 2000))
+  const handleRunAIReview = async () => {
+    if (!currentFile) return
     
-    // Mock insights data
-    const mockInsights: InsightData = {
-      overallScore: 78,
-      keywordsFound: ['TypeScript', 'React', 'Node.js', 'AWS', 'Security Clearance', 'Agile', 'Docker'],
-      missingKeywords: ['Kubernetes', 'Python', 'CI/CD', 'Jenkins'],
-      strengths: [
-        'Strong technical skills with modern web technologies',
-        'Active security clearance mentioned prominently',
-        'Quantifiable achievements with metrics',
-        'Clear progression of responsibilities'
-      ],
-      suggestions: [
-        'Add more specific security-related certifications',
-        'Include experience with cloud security tools',
-        'Expand on leadership and mentoring experience',
-        'Add more keywords related to DevOps practices'
-      ]
-    }
-
-    // Mock job matches
-    const mockJobMatches: JobMatch[] = [
-      {
-        id: '1',
-        title: 'Senior Full Stack Developer',
-        company: 'Northrop Grumman',
-        location: 'McLean, VA',
-        clearanceRequired: 'TS/SCI',
-        matchPercentage: 87,
-        improvementTips: [
-          'Add experience with Java Spring Boot',
-          'Highlight any polygraph experience',
-          'Include more DevOps keywords'
-        ],
-        jobUrl: '/dashboard/jobs/1'
-      },
-      {
-        id: '2',
-        title: 'Cloud Solutions Architect',
-        company: 'Booz Allen Hamilton',
-        location: 'Arlington, VA',
-        clearanceRequired: 'Secret',
-        matchPercentage: 75,
-        improvementTips: [
-          'Add AWS certifications',
-          'Include Terraform experience',
-          'Mention experience with government cloud environments'
-        ],
-        jobUrl: '/dashboard/jobs/2'
-      },
-      {
-        id: '3',
-        title: 'Software Engineer III',
-        company: 'Lockheed Martin',
-        location: 'Bethesda, MD',
-        clearanceRequired: 'Top Secret',
-        matchPercentage: 72,
-        improvementTips: [
-          'Add C++ experience if applicable',
-          'Include embedded systems knowledge',
-          'Highlight any DoD project experience'
-        ],
-        jobUrl: '/dashboard/jobs/3'
-      },
-      {
-        id: '4',
-        title: 'DevSecOps Engineer',
-        company: 'General Dynamics',
-        location: 'Chantilly, VA',
-        clearanceRequired: 'TS/SCI',
-        matchPercentage: 68,
-        improvementTips: [
-          'Add security scanning tools experience',
-          'Include compliance framework knowledge',
-          'Mention container security experience'
-        ],
-        jobUrl: '/dashboard/jobs/4'
-      },
-      {
-        id: '5',
-        title: 'Technical Lead',
-        company: 'SAIC',
-        location: 'Reston, VA',
-        clearanceRequired: 'Secret',
-        matchPercentage: 65,
-        improvementTips: [
-          'Emphasize team leadership experience',
-          'Add project management certifications',
-          'Include budget management experience'
-        ],
-        jobUrl: '/dashboard/jobs/5'
+    setIsAnalyzing(true)
+    
+    try {
+      // Extract text from file
+      let extractedText = ''
+      
+      if (currentFile.type === 'application/pdf') {
+        // For PDF extraction, we'd normally use pdf.js
+        // This is a mock for demonstration
+        extractedText = 'Mock extracted PDF text...'
+      } else if (currentFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        // Extract text from DOCX
+        const arrayBuffer = await currentFile.arrayBuffer()
+        const result = await mammoth.extractRawText({ arrayBuffer })
+        extractedText = result.value
       }
-    ]
-
-    setInsights(mockInsights)
-    setJobMatches(mockJobMatches)
-    setIsAnalyzing(false)
+      
+      // Check for PII
+      const piiCheck = detectPII(extractedText)
+      if (piiCheck.hasPII) {
+        showNotification('PII detected! Please remove sensitive information before analysis.')
+        setIsAnalyzing(false)
+        return
+      }
+      
+      // Simulate AI analysis
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      
+      // Mock AI results
+      setAiScore(85)
+      setKeywords(['TS/SCI', 'AWS', 'React', 'Node.js', 'Agile', 'Docker', 'Kubernetes'])
+      setMissingKeywords(['Python', 'Jenkins', 'Terraform', 'CISSP'])
+      setSuggestions([
+        {
+          type: 'keyword',
+          text: 'Add AWS Certified Security certification to strengthen cloud credentials',
+          priority: 'high'
+        },
+        {
+          type: 'skill',
+          text: 'Include experience with SIEM tools to align with security roles',
+          priority: 'medium'
+        },
+        {
+          type: 'improvement',
+          text: 'Quantify accomplishments - e.g., "Managed 50+ servers" instead of "Managed servers"',
+          priority: 'high'
+        },
+        {
+          type: 'tip',
+          text: 'Consider mentioning cloud migration experience for senior positions',
+          priority: 'low'
+        }
+      ])
+      
+      setHasAIReview(true)
+      setIsAnalyzing(false)
+      showNotification('AI analysis complete!')
+      
+    } catch (error) {
+      console.error('Error during AI analysis:', error)
+      setIsAnalyzing(false)
+      showNotification('Error analyzing resume. Please try again.')
+    }
+  }
+  
+  const handleDownloadReport = () => {
+    // Generate and download AI suggestions report
+    const report = {
+      score: aiScore,
+      keywords,
+      missingKeywords,
+      suggestions,
+      date: new Date().toLocaleDateString()
+    }
+    
+    const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'resume-ai-analysis.json'
+    a.click()
+    URL.revokeObjectURL(url)
+    
+    showNotification('Report downloaded successfully!')
   }
 
   const handleDeleteResume = () => {
     setCurrentResume(null)
-    setInsights(null)
-    setJobMatches([])
+    setCurrentFile(null)
+    setFileUrl(null)
+    setHasAIReview(false)
+    setAiScore(0)
+    setSuggestions([])
+    setKeywords([])
+    setMissingKeywords([])
     localStorage.removeItem('currentResume')
     showNotification('Resume deleted successfully')
   }
@@ -300,28 +296,40 @@ export default function UpdateResumePage() {
 
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Resume Upload Card */}
-            <ResumeCard
-              currentResume={currentResume}
-              onUpload={handleFileUpload}
-              onDelete={handleDeleteResume}
-              onSetDefault={handleSetDefault}
-              isUploading={isUploading}
-            />
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              {/* Resume Upload Card */}
+              <div>
+                <EnhancedResumeCard
+                  currentResume={currentResume}
+                  onUpload={handleFileUpload}
+                  onDelete={handleDeleteResume}
+                  onSetDefault={handleSetDefault}
+                  onRunAIReview={handleRunAIReview}
+                  isUploading={isUploading}
+                  hasAIReview={hasAIReview}
+                />
+              </div>
 
-            {/* AI Insights */}
-            <ResumeInsightsPanel
-              insights={insights}
-              isAnalyzing={isAnalyzing}
-            />
-
-            {/* Job Matcher */}
-            <div className="mb-6">
-              <ResumeToJobMatcher
-                jobMatches={jobMatches}
-                isAnalyzing={isAnalyzing}
-              />
+              {/* Resume Preview */}
+              <div>
+                <ResumePreview
+                  file={currentFile}
+                  fileUrl={fileUrl}
+                />
+              </div>
             </div>
+
+            {/* AI Suggestions Panel */}
+            {(hasAIReview || isAnalyzing) && (
+              <AISuggestionsPanel
+                score={aiScore}
+                suggestions={suggestions}
+                keywords={keywords}
+                missingKeywords={missingKeywords}
+                isAnalyzing={isAnalyzing}
+                onDownloadReport={handleDownloadReport}
+              />
+            )}
           </div>
         </div>
       </div>

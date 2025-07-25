@@ -155,3 +155,21 @@
     background-position: 0% 50%;
   }
 }
+
+/* Custom Scrollbar for Resume Preview */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-800 rounded-lg;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-lg hover:bg-gray-500 transition-colors;
+}
+
+/* React-PDF Canvas Styling */
+.react-pdf__Page__canvas {
+  @apply rounded-lg shadow-lg;
+}
