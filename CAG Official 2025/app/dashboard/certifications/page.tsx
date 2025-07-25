@@ -44,7 +44,7 @@ const categoryColors = {
   security: 'text-red-500 bg-red-50',
   cloud: 'text-blue-500 bg-blue-50',
   network: 'text-green-500 bg-green-50',
-  development: 'text-purple-500 bg-purple-50',
+  development: 'text-dynamic-green bg-green-50',
   infrastructure: 'text-orange-500 bg-orange-50',
   other: 'text-gray-500 bg-gray-50'
 }

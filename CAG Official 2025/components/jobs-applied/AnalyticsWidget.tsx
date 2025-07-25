@@ -40,8 +40,8 @@ export default function AnalyticsWidget({ analytics }: AnalyticsProps) {
       label: 'Success Rate',
       value: `${analytics.successRate}%`,
       icon: TrendingUp,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50 dark:bg-purple-900/20'
+      color: 'text-dynamic-green',
+      bgColor: 'bg-green-50 dark:bg-green-900/20'
     }
   ]
 

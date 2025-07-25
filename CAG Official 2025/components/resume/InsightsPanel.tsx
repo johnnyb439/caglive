@@ -158,7 +158,7 @@ export default function InsightsPanel({ insights, isAnalyzing }: InsightsPanelPr
       {/* Suggestions */}
       <div>
         <h3 className="font-semibold mb-3 flex items-center gap-2">
-          <TrendingUp size={18} className="text-purple-500" />
+          <TrendingUp size={18} className="text-dynamic-green" />
           Improvement Suggestions
         </h3>
         <ul className="space-y-2">
@@ -170,7 +170,7 @@ export default function InsightsPanel({ insights, isAnalyzing }: InsightsPanelPr
               transition={{ duration: 0.3, delay: index * 0.1 }}
               className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
             >
-              <Target size={16} className="text-purple-500 mt-0.5 flex-shrink-0" />
+              <Target size={16} className="text-dynamic-green mt-0.5 flex-shrink-0" />
               {suggestion}
             </motion.li>
           ))}

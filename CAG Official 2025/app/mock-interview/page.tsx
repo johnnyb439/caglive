@@ -269,7 +269,7 @@ export default function MockInterviewPage() {
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
                   placeholder="Type your answer here..."
-                  className="w-full p-4 border border-gray-300 rounded-lg focus:border-cyber-cyan focus:outline-none resize-none"
+                  className="w-full p-4 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:border-cyber-cyan focus:outline-none resize-none"
                   rows={6}
                 />
                 
@@ -302,8 +302,8 @@ export default function MockInterviewPage() {
                   className="mt-6 space-y-4"
                 >
                   {userAnswer && (
-                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                      <h4 className="font-semibold text-blue-700 mb-2">Your Answer:</h4>
+                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                      <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">Your Answer:</h4>
                       <p className="text-sm text-gray-700 dark:text-gray-300">{userAnswer}</p>
                     </div>
                   )}

@@ -270,11 +270,11 @@ export default function MessageCenter({ isOpen, onClose, userId }: MessageCenter
 
                 {/* AI Tip */}
                 {showAITip && (
-                  <div className="mx-4 mt-2 p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+                  <div className="mx-4 mt-2 p-3 bg-dynamic-green/10 border border-dynamic-green/30 rounded-lg">
                     <div className="flex items-start gap-3">
-                      <Sparkles className="w-4 h-4 text-purple-400 mt-0.5" />
+                      <Sparkles className="w-4 h-4 text-dynamic-green mt-0.5" />
                       <div className="flex-1">
-                        <p className="text-xs text-purple-400 font-medium">AI Tip</p>
+                        <p className="text-xs text-dynamic-green font-medium">AI Tip</p>
                         <p className="text-xs text-gray-300 mt-1">
                           Keep your personal info safe! Share your clearance level and work experience, 
                           but never SSN, DOB, or personal contact info.

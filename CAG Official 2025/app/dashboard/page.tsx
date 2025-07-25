@@ -62,7 +62,7 @@ export default function DashboardPage() {
     { label: 'Profile Completion', value: '75%', icon: User, color: 'text-green-400' },
     { label: 'Jobs Applied', value: '12', icon: Briefcase, color: 'text-blue-400' },
     { label: 'Certifications', value: '3', icon: Award, color: 'text-yellow-400' },
-    { label: 'Mock Interviews', value: '5', icon: Target, color: 'text-purple-400' }
+    { label: 'Mock Interviews', value: '5', icon: Target, color: 'text-dynamic-green' }
   ]
 
   const recentActivity = [
@@ -79,8 +79,34 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-900 text-gray-100 relative overflow-hidden">
+      {/* Binary Pattern Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="text-dynamic-green font-mono text-lg leading-relaxed">
+            {Array(30).fill(null).map((_, i) => (
+              <div key={i} className="whitespace-nowrap">
+                {Array(15).fill('01101000 01100101 01101100 01110000 00100000 ').join('')}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Scattered larger binary numbers */}
+        <div className="absolute top-10 left-20 text-cyber-cyan opacity-10 font-mono text-4xl transform rotate-12">
+          01010011
+        </div>
+        <div className="absolute top-40 right-32 text-dynamic-green opacity-10 font-mono text-3xl transform -rotate-6">
+          11001010
+        </div>
+        <div className="absolute bottom-20 left-40 text-sky-blue opacity-10 font-mono text-5xl transform rotate-45">
+          10110
+        </div>
+        <div className="absolute bottom-40 right-20 text-emerald-green opacity-10 font-mono text-3xl transform -rotate-12">
+          01101110
+        </div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="bg-gray-800 rounded-xl p-6 mb-8 border border-gray-700">
           <div className="flex justify-between items-center">
@@ -169,7 +195,7 @@ export default function DashboardPage() {
                   href="/mock-interview"
                   className="flex items-center p-4 bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-gray-700/70 transition"
                 >
-                  <Target className="text-purple-400 mr-3 w-6 h-6" />
+                  <Target className="text-dynamic-green mr-3 w-6 h-6" />
                   <div>
                     <p className="font-semibold">Practice Interview</p>
                     <p className="text-sm text-gray-400">AI-powered prep</p>
@@ -265,14 +291,14 @@ export default function DashboardPage() {
               <h2 className="text-xl font-bold mb-6">Upcoming Events</h2>
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <Calendar className="text-purple-400 mr-3 mt-1 w-5 h-5" />
+                  <Calendar className="text-dynamic-green mr-3 mt-1 w-5 h-5" />
                   <div>
                     <p className="font-semibold">Virtual Career Fair</p>
                     <p className="text-sm text-gray-400">March 15, 2025 • 2:00 PM EST</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Calendar className="text-purple-400 mr-3 mt-1 w-5 h-5" />
+                  <Calendar className="text-dynamic-green mr-3 mt-1 w-5 h-5" />
                   <div>
                     <p className="font-semibold">Resume Workshop</p>
                     <p className="text-sm text-gray-400">March 20, 2025 • 6:00 PM EST</p>
@@ -286,7 +312,7 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-6 text-white"
+              className="bg-gradient-to-r from-dynamic-green to-dynamic-blue rounded-xl p-6 text-white"
             >
               <div className="flex items-center mb-4">
                 <Bell className="w-6 h-6 mr-3" />

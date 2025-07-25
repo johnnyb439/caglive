@@ -68,9 +68,9 @@ export default function JobMatcher({ jobMatches, isAnalyzing }: JobMatcherProps)
         Resume-to-Job Matcher
       </h2>
 
-      <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg">
+      <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-lg">
         <p className="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2">
-          <Sparkles size={16} className="text-purple-500" />
+          <Sparkles size={16} className="text-dynamic-green" />
           Top job matches based on your resume analysis
         </p>
       </div>
@@ -106,7 +106,7 @@ export default function JobMatcher({ jobMatches, isAnalyzing }: JobMatcherProps)
             {/* Match Suggestions */}
             <div className="mb-3">
               <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
-                <TrendingUp size={14} className="text-purple-500" />
+                <TrendingUp size={14} className="text-dynamic-green" />
                 To improve match:
               </h4>
               <ul className="space-y-1">
@@ -115,7 +115,7 @@ export default function JobMatcher({ jobMatches, isAnalyzing }: JobMatcherProps)
                     key={suggestionIndex}
                     className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2"
                   >
-                    <span className="text-purple-500 mt-0.5">•</span>
+                    <span className="text-dynamic-green mt-0.5">•</span>
                     {suggestion}
                   </li>
                 ))}

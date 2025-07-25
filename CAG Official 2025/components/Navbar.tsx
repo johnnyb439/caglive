@@ -35,7 +35,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center">
               <div>
                 <span className="text-white font-montserrat font-bold text-xl whitespace-nowrap">Cleared Advisory Group</span>
-                <p className="text-sky-blue text-xs">Your Gateway to Opportunities</p>
+                <p className="text-sky-blue text-xs">Your Gateway to Cleared IT Opportunities</p>
               </div>
             </Link>
           </div>

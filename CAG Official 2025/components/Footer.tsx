@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div>
               <h3 className="font-montserrat font-bold text-xl mb-2">Cleared Advisory Group</h3>
-              <p className="text-cyber-cyan text-sm">Your Gateway to Opportunities</p>
+              <p className="text-cyber-cyan text-sm">Your Gateway to Cleared IT Opportunities</p>
             </div>
             <p className="text-gray-400 text-sm">
               Bridging the gap between cleared professionals and IT contracting success.

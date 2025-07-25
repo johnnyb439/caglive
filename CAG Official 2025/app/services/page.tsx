@@ -158,7 +158,7 @@ export default function ServicesPage() {
                 className="card group hover:shadow-xl transition-all duration-300 relative"
               >
                 {service.isNew && (
-                  <div className="absolute -top-3 -right-3 bg-mission-magenta text-white px-3 py-1 rounded-full text-xs font-semibold">
+                  <div className="absolute -top-3 -right-3 bg-dynamic-green text-white px-3 py-1 rounded-full text-xs font-semibold">
                     NEW
                   </div>
                 )}

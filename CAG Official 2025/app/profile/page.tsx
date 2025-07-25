@@ -66,14 +66,40 @@ export default function ProfilePage() {
   const tagOptions = ['Remote', 'Hybrid', 'On-Site', 'Contract', 'Full-Time', 'Part-Time']
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-900 text-gray-100 relative overflow-hidden">
+      {/* Binary Pattern Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="text-dynamic-green font-mono text-lg leading-relaxed">
+            {Array(30).fill(null).map((_, i) => (
+              <div key={i} className="whitespace-nowrap">
+                {Array(15).fill('01101000 01100101 01101100 01110000 00100000 ').join('')}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Scattered larger binary numbers */}
+        <div className="absolute top-10 left-20 text-cyber-cyan opacity-10 font-mono text-4xl transform rotate-12">
+          01010011
+        </div>
+        <div className="absolute top-40 right-32 text-dynamic-green opacity-10 font-mono text-3xl transform -rotate-6">
+          11001010
+        </div>
+        <div className="absolute bottom-20 left-40 text-sky-blue opacity-10 font-mono text-5xl transform rotate-45">
+          10110
+        </div>
+        <div className="absolute bottom-40 right-20 text-emerald-green opacity-10 font-mono text-3xl transform -rotate-12">
+          01101110
+        </div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Overview Card */}
         <div className="bg-gray-800 rounded-xl p-6 mb-8 border border-gray-700">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-3xl font-bold">
+                <div className="w-24 h-24 bg-gradient-to-br from-dynamic-blue to-dynamic-green rounded-full flex items-center justify-center text-3xl font-bold">
                   {profileData.avatar ? (
                     <img src={profileData.avatar} alt="Profile" className="w-full h-full rounded-full object-cover" />
                   ) : (
@@ -105,7 +131,7 @@ export default function ProfilePage() {
               <div className="flex gap-2 flex-wrap justify-end">
                 <button 
                   onClick={() => setIsMessageCenterOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition relative"
+                  className="flex items-center gap-2 px-4 py-2 bg-dynamic-green hover:bg-emerald-green text-white rounded-lg transition relative"
                 >
                   <MessageSquare className="w-4 h-4" />
                   Messages
@@ -161,7 +187,7 @@ export default function ProfilePage() {
                       <p className="text-sm text-gray-400">Last updated {documents.resume.lastUpdate}</p>
                     </div>
                   </div>
-                  <button className="text-blue-400 hover:text-blue-300 text-sm">Update</button>
+                  <Link href="/dashboard/resume" className="text-blue-400 hover:text-blue-300 text-sm">Update</Link>
                 </div>
 
 
@@ -182,7 +208,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                <button className="w-full mt-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition">
+                <button className="w-full mt-4 bg-gradient-to-r from-dynamic-green to-dynamic-blue hover:from-emerald-green hover:to-sky-blue py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition">
                   <Brain className="w-5 h-5" />
                   Let AI Review My Resume
                 </button>
@@ -192,7 +218,7 @@ export default function ProfilePage() {
             {/* Dream Job Tracker */}
             <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <Target className="w-5 h-5 text-purple-400" />
+                <Target className="w-5 h-5 text-dynamic-green" />
                 Dream Job Tracker (AI Module)
               </h2>
 
@@ -321,7 +347,7 @@ export default function ProfilePage() {
 
               {/* AI Assistant Popup */}
               {aiSuggestion.visible && (
-                <div className="mt-4 p-4 bg-purple-600/10 border border-purple-500/30 rounded-lg relative">
+                <div className="mt-4 p-4 bg-dynamic-green/10 border border-dynamic-green/30 rounded-lg relative">
                   <button 
                     onClick={() => setAiSuggestion({...aiSuggestion, visible: false})}
                     className="absolute top-2 right-2 text-gray-400 hover:text-gray-300"
@@ -329,9 +355,9 @@ export default function ProfilePage() {
                     <X className="w-4 h-4" />
                   </button>
                   <div className="flex items-start gap-3">
-                    <Brain className="w-5 h-5 text-purple-400 mt-0.5" />
+                    <Brain className="w-5 h-5 text-dynamic-green mt-0.5" />
                     <div>
-                      <p className="text-sm font-medium text-purple-400 mb-1">AI Suggestion</p>
+                      <p className="text-sm font-medium text-dynamic-green mb-1">AI Suggestion</p>
                       <p className="text-sm text-gray-300">{aiSuggestion.message}</p>
                     </div>
                   </div>
@@ -359,7 +385,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-400">AI Resume Reviews</span>
-                  <span className="text-2xl font-bold text-purple-400">{activityStats.aiReviews}</span>
+                  <span className="text-2xl font-bold text-dynamic-green">{activityStats.aiReviews}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-400">Interviews Scheduled</span>
