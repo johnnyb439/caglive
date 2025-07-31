@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 w-full glass-nav z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <div>
@@ -42,12 +42,12 @@ export default function Navbar() {
           </div>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-white hover:text-sky-blue transition-colors duration-300"
+                className="text-white hover:text-sky-blue transition-colors duration-300 whitespace-nowrap text-sm lg:text-base px-2"
               >
                 {link.label}
               </Link>
@@ -57,7 +57,7 @@ export default function Navbar() {
             {user ? (
               <Link
                 href="/dashboard"
-                className="flex items-center text-white hover:text-sky-blue transition-colors duration-300"
+                className="flex items-center text-white hover:text-sky-blue transition-colors duration-300 whitespace-nowrap text-sm lg:text-base"
               >
                 <User size={20} className="mr-2" />
                 Dashboard
@@ -65,7 +65,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="text-white hover:text-sky-blue transition-colors duration-300"
+                className="text-white hover:text-sky-blue transition-colors duration-300 whitespace-nowrap text-sm lg:text-base"
               >
                 Sign In
               </Link>
